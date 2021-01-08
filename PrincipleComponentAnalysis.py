@@ -41,14 +41,14 @@ plt.figure()
 plt.plot(np.cumsum(model.explained_variance_ratio_), color='red')
 plt.bar(np.arange(model.n_components_), model.explained_variance_ratio_)
 plt.gca().set(title='95%')
-# print('components waarmee t-waarde wordt berekend:\n', pd.DataFrame(model.components_.T, index=data.columns))
+print('components waarmee t-waarde wordt berekend:\n', pd.DataFrame(model.components_.T, index=data.columns))
 
 plt.figure()
 plt.subplot(211)
-plt.bar(data.columns, model.components_[:, 0])
+plt.bar(data.columns, model.components_.T[:, 0])
 plt.gca().set(title='PC1', ylabel='first component loading')
 plt.subplot(212)
-plt.bar(data.columns, model.components_[:, 1])
+plt.bar(data.columns, model.components_.T[:, 1])
 plt.gca().set(title='PC2', ylabel='second component loading')
 plt.tight_layout()
 
@@ -67,15 +67,15 @@ plt.plot(plotpca[:, 0])
 plt.gca().set(title='scores van PC1')
 
 plt.figure()
-plt.scatter(x=model.components_[:, 0], y=model.components_[:, 1])
+plt.scatter(x=model.components_.T[:, 0], y=model.components_.T[:, 1])
 for i, txt in enumerate(data.columns):
-    plt.annotate(txt, (model.components_[:, 0][i], model.components_[:, 1][i]))
+    plt.annotate(txt, (model.components_.T[:, 0][i], model.components_.T[:, 1][i]))
 plt.axvline(x=0, color='k', alpha=0.4)
 plt.axhline(y=0, color='k', alpha=0.4)
 plt.gca().set(xlabel='first component', ylabel='second component')
 plt.show()
 
-# print(data.reset_index())
+print(data.reset_index().iloc[32, :])  # index starts at 0 so sample 32 -> sample 33
 # print(data.mean())
 
 
